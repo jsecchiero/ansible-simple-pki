@@ -71,8 +71,8 @@
 - name: protect keys
   file: 
     path: "{{ item }}"
-    owner: root 
-    group: root 
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0400
   with_items:
   - "{{ simplepki_root_ca_private_dir }}/{{ simplepki_root_ca_name }}{{ simplepki_file_ext_key }}"

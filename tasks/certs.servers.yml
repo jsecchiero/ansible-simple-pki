@@ -30,8 +30,8 @@
 - name: protect server keys
   file: 
     path: "{{ simplepki_certs_dir }}/{{ item.fqdn }}{{ simplepki_file_ext_key }}"
-    owner: root 
-    group: root 
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0400
   with_items: "{{ simplepki_server_certs }}"
 
