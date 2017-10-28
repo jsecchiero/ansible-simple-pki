@@ -7,6 +7,7 @@
     executable=/bin/bash
   notify:
   - create chained ca file
+  - git push
   with_items:
     - "{{ simplepki_signing_ca_name}}"
     - "{{ simplepki_root_ca_name}}"
@@ -31,4 +32,12 @@
     executable=/bin/bash
   notify:
   - create crls
+  - git push
   with_items: simplepki_revocation_list
+
+- name: git push
+  shell: git add . && git commit -m "update keys" && git push
+  args:
+    chdir : "{{ simplepki_base_dir }}"
+  environment:
+    GIT_KEY: "{{ git_key | realpath }}"
