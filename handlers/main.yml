@@ -36,7 +36,7 @@
   with_items: simplepki_revocation_list
 
 - name: git push
-  shell: git add . && git commit -m "update keys" && git push
+  shell: git add . && git commit -m "update keys"; git push
   args:
     chdir : "{{ simplepki_base_dir }}"
   environment:
