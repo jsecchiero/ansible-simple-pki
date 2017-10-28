@@ -1,6 +1,17 @@
 ---
 # tasks file for netzwirt.simple-pki
 
+- name: git pull using the given key
+  git: 
+    accept_hostkey: yes
+    dest: "{{ simplepki_base_dir }}/"
+    key_file: "{{ git_key | realpath }}"
+    repo: "{{ git_url }}"
+    version: "{{ git_branch }}"
+    recursive: yes
+    force: yes
+    update: yes
+
 - include: pki-structure.yml
 - include: ssl-config.yml
 - include: certs.ca.yml
@@ -32,3 +43,10 @@
   notify: [create crls,create chained ca file,revoke certificates]
   when: simplepki_revocation_list|length > 0
 
+- name: git push
+  shell: git add . && git commit -m "update keys" && git push
+  args:
+    chdir : "{{ simplepki_base_dir }}"
+  environment:
+    GIT_KEY: "{{ git_key | realpath }}"
+  register: push

@@ -89,6 +89,18 @@ Check certificate with crl:
     openssl verify -crl_check_all -verbose -CAfile ca/chained-ca.sha256.2048.crt \
              -CRLfile crl/signing-ca.crl  certs/fred.sha256.2048.crt
 
+## Git sync
+
+for store your pki in a private git repo
+private key enabled to the repo, must be readable
+only from the owner (chmod 400)
+
+```
+git_key: id_rsa
+git_url: github.com/myprofile/myprivaterepo
+git_branch: master
+```
+
 # License
 
 BSD
