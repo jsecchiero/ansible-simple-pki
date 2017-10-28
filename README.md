@@ -57,7 +57,7 @@ None
 
     - hosts: pki
       roles:
-         - { role: netzwirt.simple-pki }
+         - { role: jsecchiero.simple-pki }
 
 
 
@@ -104,7 +104,3 @@ git_branch: master
 # License
 
 BSD
-
-# Author Information
-
-[netzwirt](https://github.com/netzwirt)

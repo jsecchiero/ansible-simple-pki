@@ -1,7 +1,5 @@
 ---
 galaxy_info:
-  author: 'Reto Gassmann'
-  description: 'Simple PKI for Ubuntu/Debian'
   license: BSD
   min_ansible_version: '1.8'
 
