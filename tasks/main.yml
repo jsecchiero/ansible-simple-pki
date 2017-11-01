@@ -1,11 +1,14 @@
 ---
 # tasks file for netzwirt.simple-pki
 
+- name: copy private key
+  copy: src="{{ git_key | realpath }}" dest="/tmp/simple-pki.tmp" mode=0400
+
 - name: git pull using the given key
   git: 
     accept_hostkey: yes
     dest: "{{ simplepki_base_dir }}/"
-    key_file: "{{ git_key | realpath }}"
+    key_file: "/tmp/simple-pki.tmp"
     repo: "{{ git_url }}"
     version: "{{ git_branch }}"
     recursive: yes
@@ -48,5 +51,9 @@
   args:
     chdir : "{{ simplepki_base_dir }}"
   environment:
-    GIT_KEY: "{{ git_key | realpath }}"
+    GIT_SSH_COMMAND: "/usr/bin/ssh -o StrictHostKeyChecking=no -i /tmp/simple-pki.tmp"
+    GIT_AUTHOR_NAME: "simplepki"
+    GIT_AUTHOR_EMAIL: "secchierojacopo@gmail.com"
+    GIT_COMMITTER_NAME: "simplepki"
+    GIT_COMMITTER_EMAIL: "secchierojacopo@gmail.com"
   register: push
